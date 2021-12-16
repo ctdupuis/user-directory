@@ -1,4 +1,41 @@
 .directory {
     color: #222222;
     padding: 10%;
+    width: 50%;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1%;
+}
+
+button {
+    font-size: large;
+    padding: 1%;
+}
+
+.nav {
+    background: none;
+    color: white;
+    border: none;
+    text-decoration: blink;
+}
+
+.nav:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.crud {
+    background-color: #34a5da;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    width: 10%;
+}
+
+.crud:hover {
+    cursor: pointer;
+    background-color: #2a81a9;
 }

@@ -1,6 +1,23 @@
 .user-card {
     background-color: #ebebeb;
-    padding: 10%;
+    padding: 1% 6%;
+
+}
+
+.user-info {
+    text-align: left;
+}
+
+.title {
+    margin: 2% 0;
+}
+
+.location, .job-title, .employer, ol, li {
+    margin: 1% 0;
+}
+
+.movies {
+    margin: 3% 0;
 }
 
 .title {

@@ -30,11 +30,11 @@ export default function Directory() {
         <div className="directory">
             <UserCard user={currentUser} min={min} max={max} />
             <div className="controls">
-                <button onClick={handleClick}>{prev}</button>
-                <button>Create</button>
-                <button>Edit</button>
-                <button>Delete</button>
-                <button onClick={handleClick}>{next}</button>
+                <button className="nav" onClick={handleClick}>{prev}</button>
+                <button className="crud">Edit</button>
+                <button className="crud">Delete</button>
+                <button className="crud">New</button>
+                <button className="nav" onClick={handleClick}>{next}</button>
             </div>
         </div>
         
