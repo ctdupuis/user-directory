@@ -1,0 +1,18 @@
+.user-card {
+    background-color: #ebebeb;
+    padding: 10%;
+}
+
+.title {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.title h3 {
+    border-bottom: 1px solid #34a5da;
+}
+
+.index {
+    display: flex;
+    justify-content: flex-end;
+}
