@@ -1,0 +1,13 @@
+header {
+    background-color: #34a5da;
+    color: #222222;
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1%;
+}
+
+h2 {
+    margin-left: 5%;
+}
