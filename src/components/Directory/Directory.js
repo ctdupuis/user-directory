@@ -4,6 +4,7 @@ import data from '../../starter_files/data';
 import UserCard from './UserCard/UserCard';
 import EditCard from './EditCard/EditCard';
 import NewCard from './NewCard/NewCard';
+import Controls from './Controls/Controls';
 
 export default function Directory() {
     const [users, updateUsers] = useState(data);
@@ -11,11 +12,10 @@ export default function Directory() {
     const [isEditing, setEditing] = useState(false);
     const [isCreating, setCreating] = useState(false);
 
+    const next = "Next >"
+    
     const min = 0;
     const max = users.length;
-
-    const prev = "< Previous"
-    const next = "Next >"
     
     let currentUser = users[idx]
 
@@ -63,21 +63,7 @@ export default function Directory() {
     return (
         <div className="directory">
             {handleCard()}
-            <div className="controls">
-                <button className="nav" onClick={handleClick}>{prev}</button>
-                { !isEditing ?
-                    <button className="crud" onClick={() => setEditing(!isEditing)}>Edit</button>
-                    :
-                    <button className="crud" onClick={() => setEditing(!isEditing)}>Cancel</button>
-                }
-                <button className="crud" onClick={removeUser}>Delete</button>
-                { !isCreating ?
-                    <button className="crud" onClick={() => setCreating(!isCreating)}>New</button>
-                    :
-                    <button className="crud" onClick={() => setCreating(!isCreating)}>Cancel</button>
-                }
-                <button className="nav" onClick={handleClick}>{next}</button>
-            </div>
+            <Controls handleClick={handleClick} removeUser={removeUser} isEditing={isEditing} setEditing={setEditing} isCreating={isCreating} setCreating={setCreating} />
         </div>
         
     )
