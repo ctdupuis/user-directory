@@ -1,13 +1,13 @@
 import React from 'react'
 import './UserCard.css'
 
-export default function UserCard({ user, min, max }) {
+export default function UserCard({ user, min, max, idx }) {
     const favMovies = user.favoriteMovies.map((movie, idx) => <li key={idx}>{movie}</li>)
 
     return (
         <div className="user-card">
             <div className="index">
-                <h3>{user.id}/{max}</h3>
+                <h3>{idx+1}/{max}</h3>
             </div>
             <div className="title">
                 <h3>{user.name.first} {user.name.last}</h3>

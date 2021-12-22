@@ -6,33 +6,38 @@ import EditCard from './EditCard/EditCard';
 
 export default function Directory() {
     const [users, updateUsers] = useState(data);
-    const [id, setId] = useState(1);
+    const [idx, setIdx] = useState(0);
     const [isEditing, setEditing] = useState(false);
 
-    const min = 1;
-    const max = data.length;
+    const min = 0;
+    const max = users.length;
 
     const prev = "< Previous"
     const next = "Next >"
     
-    let currentUser = users.find(user => user.id === id)
+    let currentUser = users[idx]
 
     const updateUser = user => {
-        let targetIndex = users.indexOf(currentUser)
-        let newArray = [...users]
-        newArray[targetIndex] = user
-        // debugger
-        updateUsers(newArray)
+        let newArray = [...users];
+        newArray[idx] = user;
+        updateUsers(newArray);
+    }
+
+    const removeUser = () => {
+        if (window.confirm("Are you sure? This action cannot be unodone")) {
+            let newArray = [...users.slice(0, idx), ...users.slice(idx+1, users.length)]
+            updateUsers(newArray)
+        }
     }
 
     const handleClick = e => {
         if (e.target.innerText === next) {
-            if (id !== max) {
-                setId(id + 1)
+            if (idx !== max) {
+                setIdx(idx + 1)
             }
         } else {
-            if (id !== min) {
-                setId(id - 1)
+            if (idx !== min) {
+                setIdx(idx - 1)
             }
         }
     }
@@ -41,7 +46,7 @@ export default function Directory() {
         if (isEditing) {
             return(<EditCard user={currentUser} min={min} max={max} updateUser={updateUser} setEditing={setEditing} />)
         } else {
-            return(<UserCard user={currentUser} min={min} max={max} />)
+            return(<UserCard user={currentUser} min={min} max={max} idx={idx}/>)
         }
     }
 
@@ -55,7 +60,7 @@ export default function Directory() {
                     :
                     <button className="crud" onClick={() => setEditing(!isEditing)}>Cancel</button>
                 }
-                <button className="crud">Delete</button>
+                <button className="crud" onClick={removeUser}>Delete</button>
                 <button className="crud">New</button>
                 <button className="nav" onClick={handleClick}>{next}</button>
             </div>

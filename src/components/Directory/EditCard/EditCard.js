@@ -2,7 +2,6 @@ import React from 'react';
 import { useInput } from '../../../hooks/UseInput';
 
 export default function EditCard({ user, min, max, updateUser, setEditing }) {
-    const favMovies = user.favoriteMovies.map((movie, idx) => <li key={idx}><input type="text" defaultValue={movie} /></li>)
 
     const { value:firstName, bind:bindFirstName, reset:resetFirstName } = useInput(user.name.first);
     const { value:lastName, bind:bindLastName, reset:resetLastName } = useInput(user.name.last);
