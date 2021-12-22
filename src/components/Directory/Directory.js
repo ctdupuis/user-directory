@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import './Directory.css'
 import data from '../../starter_files/data';
 import UserCard from './UserCard/UserCard';
+import EditCard from './EditCard/EditCard';
 
 export default function Directory() {
     const [users, updateUsers] = useState(data);
-    const [id, setId] = useState(1)
+    const [id, setId] = useState(1);
+    const [isEditing, setEditing] = useState(false);
 
     const min = 1;
     const max = data.length;
@@ -26,12 +28,26 @@ export default function Directory() {
         }
     }
 
+    const toggleEdit = () => setEditing(!isEditing)
+
+    const handleCard = () => {
+        if (isEditing) {
+            return(<EditCard user={currentUser} min={min} max={max} />)
+        } else {
+            return(<UserCard user={currentUser} min={min} max={max} />)
+        }
+    }
+
     return (
         <div className="directory">
-            <UserCard user={currentUser} min={min} max={max} />
+            {handleCard()}
             <div className="controls">
                 <button className="nav" onClick={handleClick}>{prev}</button>
-                <button className="crud">Edit</button>
+                { !isEditing ?
+                    <button className="crud" onClick={toggleEdit}>Edit</button>
+                    :
+                    <button className="crud" onClick={toggleEdit}>Cancel</button>
+                }
                 <button className="crud">Delete</button>
                 <button className="crud">New</button>
                 <button className="nav" onClick={handleClick}>{next}</button>
