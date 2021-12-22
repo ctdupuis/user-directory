@@ -1,8 +1,8 @@
 import React from 'react';
 import { useInput } from '../../../hooks/UseInput';
 
-export default function EditCard({ user, min, max }) {
-    const favMovies = user.favoriteMovies.map((movie, idx) => <li key={idx}><input type="text" value={movie} /></li>)
+export default function EditCard({ user, min, max, updateUser, setEditing }) {
+    const favMovies = user.favoriteMovies.map((movie, idx) => <li key={idx}><input type="text" defaultValue={movie} /></li>)
 
     const { value:firstName, bind:bindFirstName, reset:resetFirstName } = useInput(user.name.first);
     const { value:lastName, bind:bindLastName, reset:resetLastName } = useInput(user.name.last);
@@ -10,9 +10,13 @@ export default function EditCard({ user, min, max }) {
     const { value:country, bind:bindCountry, reset:resetCountry} = useInput(user.country);
     const { value:title, bind:bindTitle, reset:resetTitle} = useInput(user.title);
     const { value:employer, bind:bindEmployer, reset:resetEmployer} = useInput(user.employer)
+    const { value:movie1, bind:bindMovie1, reset:resetMovie1} = useInput(user.favoriteMovies[0])
+    const { value:movie2, bind:bindMovie2, reset:resetMovie2} = useInput(user.favoriteMovies[1])
+    const { value:movie3, bind:bindMovie3, reset:resetMovie3} = useInput(user.favoriteMovies[2])
 
     const handleClick = () => {
         let obj = {
+            id: user.id,
             name: {
                 first: firstName,
                 last: lastName
@@ -20,9 +24,11 @@ export default function EditCard({ user, min, max }) {
             city: city,
             country: country,
             title: title,
-            employer: employer
+            employer: employer,
+            favoriteMovies: [movie1, movie2, movie3]
         }
-        console.log(obj)
+        updateUser(obj)
+        setEditing(false)
     }
 
     return (
@@ -36,7 +42,7 @@ export default function EditCard({ user, min, max }) {
             </div>
             <div className="user-info">
                 <div className="location">
-                    <h3 style={{ display: "inline" }}>City: </h3> <input type="text" value={city} {...bindCity}/>
+                    <h3 style={{ display: "inline" }}>City: </h3> <input type="text" defaultValue={city} {...bindCity}/>
                     <h3 style={{ display: "inline", marginLeft: "2%" }}>Country: </h3><input type="text" defaultValue={country} {...bindCountry} />
                 </div>
                 <div className="job-title">
@@ -48,7 +54,15 @@ export default function EditCard({ user, min, max }) {
                 <div className="movies">
                     <strong>Favorite Movies:</strong>
                     <ol>
-                        {favMovies}
+                        <li>
+                            <input type="text" value={movie1} {...bindMovie1}/>
+                        </li>
+                        <li>
+                            <input type="text" value={movie2} {...bindMovie2}/>
+                        </li>
+                        <li>
+                            <input type="text" value={movie3} {...bindMovie3}/>
+                        </li>
                     </ol>
                 </div>
                 <button className="crud" onClick={handleClick}>Save</button>

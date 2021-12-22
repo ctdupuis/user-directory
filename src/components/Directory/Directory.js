@@ -12,9 +12,18 @@ export default function Directory() {
     const min = 1;
     const max = data.length;
 
-    let currentUser = data.find(user => user.id === id)
     const prev = "< Previous"
     const next = "Next >"
+    
+    let currentUser = users.find(user => user.id === id)
+
+    const updateUser = user => {
+        let targetIndex = users.indexOf(currentUser)
+        let newArray = [...users]
+        newArray[targetIndex] = user
+        // debugger
+        updateUsers(newArray)
+    }
 
     const handleClick = e => {
         if (e.target.innerText === next) {
@@ -28,11 +37,9 @@ export default function Directory() {
         }
     }
 
-    const toggleEdit = () => setEditing(!isEditing)
-
     const handleCard = () => {
         if (isEditing) {
-            return(<EditCard user={currentUser} min={min} max={max} />)
+            return(<EditCard user={currentUser} min={min} max={max} updateUser={updateUser} setEditing={setEditing} />)
         } else {
             return(<UserCard user={currentUser} min={min} max={max} />)
         }
@@ -44,9 +51,9 @@ export default function Directory() {
             <div className="controls">
                 <button className="nav" onClick={handleClick}>{prev}</button>
                 { !isEditing ?
-                    <button className="crud" onClick={toggleEdit}>Edit</button>
+                    <button className="crud" onClick={() => setEditing(!isEditing)}>Edit</button>
                     :
-                    <button className="crud" onClick={toggleEdit}>Cancel</button>
+                    <button className="crud" onClick={() => setEditing(!isEditing)}>Cancel</button>
                 }
                 <button className="crud">Delete</button>
                 <button className="crud">New</button>
