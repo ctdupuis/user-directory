@@ -3,11 +3,13 @@ import './Directory.css'
 import data from '../../starter_files/data';
 import UserCard from './UserCard/UserCard';
 import EditCard from './EditCard/EditCard';
+import NewCard from './NewCard/NewCard';
 
 export default function Directory() {
     const [users, updateUsers] = useState(data);
     const [idx, setIdx] = useState(0);
     const [isEditing, setEditing] = useState(false);
+    const [isCreating, setCreating] = useState(false);
 
     const min = 0;
     const max = users.length;
@@ -21,6 +23,12 @@ export default function Directory() {
         let newArray = [...users];
         newArray[idx] = user;
         updateUsers(newArray);
+    }
+
+    const createUser = user => {
+        let newArray = [...users, user]
+        updateUsers(newArray);
+        setIdx(max);
     }
 
     const removeUser = () => {
@@ -45,6 +53,8 @@ export default function Directory() {
     const handleCard = () => {
         if (isEditing) {
             return(<EditCard user={currentUser} min={min} max={max} updateUser={updateUser} setEditing={setEditing} />)
+        } else if (isCreating) {
+            return(<NewCard min={min} max={max} createUser={createUser} setCreating={setCreating} />)
         } else {
             return(<UserCard user={currentUser} min={min} max={max} idx={idx}/>)
         }
@@ -61,7 +71,11 @@ export default function Directory() {
                     <button className="crud" onClick={() => setEditing(!isEditing)}>Cancel</button>
                 }
                 <button className="crud" onClick={removeUser}>Delete</button>
-                <button className="crud">New</button>
+                { !isCreating ?
+                    <button className="crud" onClick={() => setCreating(!isCreating)}>New</button>
+                    :
+                    <button className="crud" onClick={() => setCreating(!isCreating)}>Cancel</button>
+                }
                 <button className="nav" onClick={handleClick}>{next}</button>
             </div>
         </div>
